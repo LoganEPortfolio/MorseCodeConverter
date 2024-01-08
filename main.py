@@ -53,12 +53,12 @@ def encode(text):
     cap_text = list(text.upper())
     morse_code = ''
     for letter in cap_text:
-        for key in morse_dict:
-            if letter == key:
-                print(letter, key, morse_dict[key])
-                morse_letter = morse_dict[key] + ' '
-                morse_code += morse_letter
-    print(morse_code)
+        if letter != ' ':
+            morse_code += morse_dict[letter] + ' '
+        else:
+            morse_code += ' '
+
+    return morse_code
 
 
 def decode(code):
@@ -68,18 +68,16 @@ def decode(code):
     spaced_list = [e for i in strip_list for e in [i, [' ']]][:-1]
     for morse_word in spaced_list:
         for morse_letter in morse_word:
-            print(morse_letter)
             if morse_letter == ' ':
                     text += ' '
             else:
                 for key, value in morse_dict.items():
                     if morse_letter == value:
-                        print(morse_letter, value, key)
                         text += key
-    print(text)
+    return text
 
 test_string = 'This is a test'
 test_morse = '- .... .. ...     .. ...     .-     - . ... -'
 
-encode('This is a secret message')
-decode(test_morse)
+print(encode('This is a secret message'))
+print(decode(test_morse))
